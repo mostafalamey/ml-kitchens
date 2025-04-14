@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Support - ML Kitchens</title>
+    <meta name="description"
+        content="Get help and support for ML Kitchens SketchUp extension. Contact our team for assistance with your kitchen design projects.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff6b00',
+                        secondary: '#1a1a1a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans" x-data="{ isOpen: false, activeTab: 'contact' }">
+    <!-- Navigation (Same as other pages) -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <span class="bg-primary text-white px-2 py-1 rounded-lg font-bold">ML</span>
+                        <span class="text-2xl font-bold logo-text">Kitchens</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-toggle-handle"></span>
+                        <svg class="theme-toggle-icon sun" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg class="theme-toggle-icon moon" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                    </button>
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition-colors nav-link">Home</a>
+                    <a href="product.html"
+                        class="text-gray-700 hover:text-primary transition-colors nav-link">Products</a>
+                    <a href="#store" class="text-gray-700 hover:text-primary transition-colors nav-link">Store</a>
+                    <a href="#" class="text-primary nav-link">Support</a>
+                    <a href="#try"
+                        class="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors hover-lift">Try
+                        it now</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="isOpen = !isOpen" class="text-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="isOpen" class="md:hidden bg-white" @click.away="isOpen = false">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Home</a>
+                <a href="product.html"
+                    class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Products</a>
+                <a href="#store" class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Store</a>
+                <a href="#" class="block px-3 py-2 text-primary">Support</a>
+                <a href="#try" class="block px-3 py-2 bg-primary text-white rounded-md">Try it now</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative min-h-[50vh] flex items-center pt-16 bg-gradient-to-br from-gray-50/50 to-gray-100/50">
+            <div class="absolute inset-0 z-0 bg-[url('HeroBackground.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+            <div class="absolute inset-0 z-0 bg-black/40"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                    <h1 class="text-5xl font-bold text-white mb-6">How Can We Help?</h1>
+                    <p class="text-xl text-gray-100 mb-8">Get support, documentation, and answers to your questions
+                        about ML Kitchens</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Help Section -->
+        <section class="py-16 bg-white">
+            <div id="documentation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Documentation -->
+                    <div class="bg-gray-50 rounded-xl p-8" data-aos="fade-up" data-aos-delay="0">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Documentation</h3>
+                        <p class="text-gray-600 mb-6">Browse our comprehensive documentation to learn how to use ML
+                            Kitchens effectively.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium">View Documentation →</a>
+                    </div>
+
+                    <!-- Video Tutorials -->
+                    <div id="tutorials" class="bg-gray-50 rounded-xl p-8" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Video Tutorials</h3>
+                        <p class="text-gray-600 mb-6">Watch step-by-step tutorials to master ML Kitchens features and
+                            workflows.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium">Watch Tutorials →</a>
+                    </div>
+
+                    <!-- Community Forum -->
+                    <div class="bg-gray-50 rounded-xl p-8" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Community Forum</h3>
+                        <p class="text-gray-600 mb-6">Connect with other users, share tips, and get help from the
+                            community.</p>
+                        <a href="#" class="text-primary hover:text-primary/80 font-medium">Join Discussion →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="py-16 bg-gray-50">
+            <div id="contact-form" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center mb-12" data-aos="fade-up">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                        <p class="text-xl text-gray-600">Can't find what you're looking for? Send us a message.</p>
+                    </div>
+
+                    <form class="space-y-6" data-aos="fade-up" x-data="{ submitted: false }"
+                        @submit.prevent="submitted = true">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="6" required
+                                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></textarea>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit"
+                                class="px-8 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors">
+                                Send Message
+                            </button>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div x-show="submitted" class="fixed inset-0 flex items-center justify-center bg-black/50"
+                            @click.self="submitted = false">
+                            <div class="bg-white p-8 rounded-xl max-w-md mx-4">
+                                <div class="text-center">
+                                    <div
+                                        class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-2">Message Sent!</h3>
+                                    <p class="text-gray-600 mb-6">Thank you for reaching out. We'll get back to you as
+                                        soon as possible.</p>
+                                    <button @click="submitted = false"
+                                        class="px-6 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-16 bg-white">
+            <div id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Common Questions</h2>
+                    <p class="text-xl text-gray-600">Find quick answers to frequently asked questions</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto" x-data="{ active: null }">
+                    <div class="space-y-4">
+                        <!-- FAQ Items -->
+                        <div class="border rounded-lg" data-aos="fade-up">
+                            <button @click="active = active === 1 ? null : 1"
+                                class="flex justify-between items-center w-full p-4 text-left">
+                                <span class="font-semibold">What support options are available?</span>
+                                <svg class="w-5 h-5 transform transition-transform"
+                                    :class="{'rotate-180': active === 1}" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="active === 1" class="p-4 pt-0 text-gray-600">
+                                We offer multiple support channels including email support, community forums, video
+                                tutorials,
+                                and comprehensive documentation. Enterprise customers also get access to priority
+                                support.
+                            </div>
+                        </div>
+
+                        <div class="border rounded-lg" data-aos="fade-up">
+                            <button @click="active = active === 2 ? null : 2"
+                                class="flex justify-between items-center w-full p-4 text-left">
+                                <span class="font-semibold">How quickly can I expect a response?</span>
+                                <svg class="w-5 h-5 transform transition-transform"
+                                    :class="{'rotate-180': active === 2}" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="active === 2" class="p-4 pt-0 text-gray-600">
+                                We typically respond to support inquiries within 24 hours during business days.
+                                Enterprise customers
+                                receive priority support with faster response times.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Same as other pages) -->
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <h4 class="text-2xl font-bold text-white">ML Kitchens</h4>
+                    <p class="text-gray-400">Smart kitchen design solutions for SketchUp professionals.</p>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Quick Links</h5>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="product.html" class="text-gray-400 hover:text-white transition-colors">Products</a>
+                        </li>
+                        <li><a href="#store" class="text-gray-400 hover:text-white transition-colors">Store</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Support</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Support</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#documentation"
+                                class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#tutorials" class="text-gray-400 hover:text-white transition-colors">Tutorials</a>
+                        </li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQs</a></li>
+                        <li><a href="#contact-form" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Legal</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 ML Kitchens. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+
+</html>

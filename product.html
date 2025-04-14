@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Kitchens for SketchUp - Professional Kitchen Design Extension</title>
+    <meta name="description"
+        content="Speed up your kitchen cabinet design process with smart SketchUp tools. Professional-grade extension for kitchen designers.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff6b00',
+                        secondary: '#1a1a1a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans" x-data="{ isOpen: false, activeTab: 'overview', pricing: 'yearly' }">
+    <!-- Navigation (Same as homepage) -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <span class="bg-primary text-white px-2 py-1 rounded-lg font-bold">ML</span>
+                        <span class="text-2xl font-bold logo-text">Kitchens</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-toggle-handle"></span>
+                        <svg class="theme-toggle-icon sun" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg class="theme-toggle-icon moon" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                    </button>
+                    <a href="index.html" class="text-gray-700 hover:text-primary transition-colors nav-link">Home</a>
+                    <a href="product.html" class="text-primary transition-colors nav-link">Products</a>
+                    <a href="#store" class="text-gray-700 hover:text-primary transition-colors nav-link">Store</a>
+                    <a href="contact.html"
+                        class="text-gray-700 hover:text-primary transition-colors nav-link">Support</a>
+                    <a href="#try"
+                        class="bg-primary text-white px-6 py-2 rounded-full hover:bg-primary/90 transition-colors hover-lift">Try
+                        it now</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="isOpen = !isOpen" class="text-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="isOpen" class="md:hidden bg-white" @click.away="isOpen = false">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Home</a>
+                <a href="product.html" class="block px-3 py-2 text-primary">Products</a>
+                <a href="#store" class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Store</a>
+                <a href="contact.html"
+                    class="block px-3 py-2 text-gray-700 hover:text-primary transition-colors">Support</a>
+                <a href="#try" class="block px-3 py-2 bg-primary text-white rounded-md">Try it now</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center pt-16 bg-gradient-to-br from-gray-50/50 to-gray-100/50">
+            <div class="absolute inset-0 z-0 bg-[url('HeroBackground.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+            <div class="absolute inset-0 z-0 bg-black/40"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                    <h1 class="text-5xl font-bold text-white mb-6">ML Kitchens for SketchUp</h1>
+                    <p class="text-xl text-gray-100 mb-8">Speed up your kitchen cabinet design process with smart
+                        SketchUp tools</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#try"
+                            class="inline-block bg-primary text-white px-8 py-3 rounded-full hover:bg-primary/90 transition-colors">
+                            Try it now
+                        </a>
+                        <a href="#demo"
+                            class="inline-block bg-white text-gray-900 px-8 py-3 rounded-full hover:bg-gray-100 transition-colors">
+                            Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overview Tab System -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Tab Navigation -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button @click="activeTab = 'overview'"
+                        :class="{'bg-primary text-white': activeTab === 'overview', 'bg-gray-100 text-gray-700': activeTab !== 'overview'}"
+                        class="px-6 py-2 rounded-full transition-colors">
+                        Overview
+                    </button>
+                    <button @click="activeTab = 'features'"
+                        :class="{'bg-primary text-white': activeTab === 'features', 'bg-gray-100 text-gray-700': activeTab !== 'features'}"
+                        class="px-6 py-2 rounded-full transition-colors">
+                        Features
+                    </button>
+                    <button @click="activeTab = 'requirements'"
+                        :class="{'bg-primary text-white': activeTab === 'requirements', 'bg-gray-100 text-gray-700': activeTab !== 'requirements'}"
+                        class="px-6 py-2 rounded-full transition-colors">
+                        Requirements
+                    </button>
+                    <button @click="activeTab = 'updates'"
+                        :class="{'bg-primary text-white': activeTab === 'updates', 'bg-gray-100 text-gray-700': activeTab !== 'updates'}"
+                        class="px-6 py-2 rounded-full transition-colors">
+                        Updates
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="max-w-4xl mx-auto">
+                    <!-- Overview Tab -->
+                    <div x-show="activeTab === 'overview'" class="space-y-8" data-aos="fade-up">
+                        <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                            <img src="product-overview.jpg" alt="ML Kitchens Interface Overview"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="prose prose-lg max-w-none">
+                            <h2 class="text-3xl font-bold mb-4">Transform Your Kitchen Design Workflow</h2>
+                            <p class="text-gray-600">ML Kitchens is a powerful SketchUp extension that streamlines the
+                                kitchen design process. With our intelligent tools and pre-configured cabinet library,
+                                you can create professional kitchen designs in a fraction of the time.</p>
+                        </div>
+                    </div>
+
+                    <!-- Features Tab -->
+                    <div x-show="activeTab === 'features'" class="space-y-12" data-aos="fade-up">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 6h16M4 12h16m-7 6h7" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold">Smart Cabinet Library</h3>
+                                <p class="text-gray-600">Access hundreds of pre-configured cabinet designs that you can
+                                    customize to your needs.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold">Real-time 3D Visualization</h3>
+                                <p class="text-gray-600">See your designs come to life with instant 3D rendering and
+                                    material previews.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requirements Tab -->
+                    <div x-show="activeTab === 'requirements'" class="space-y-8" data-aos="fade-up">
+                        <div class="prose prose-lg max-w-none">
+                            <h2 class="text-3xl font-bold mb-4">System Requirements</h2>
+                            <ul class="space-y-4 text-gray-600">
+                                <li class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>SketchUp 2021 or newer</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Windows 10/11 or macOS 10.15+</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>4GB RAM minimum (8GB recommended)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Updates Tab -->
+                    <div x-show="activeTab === 'updates'" class="space-y-8" data-aos="fade-up">
+                        <div class="prose prose-lg max-w-none">
+                            <h2 class="text-3xl font-bold mb-4">Version History</h2>
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-semibold">Version 2.1.0 (Latest)</h3>
+                                    <p class="text-gray-500 text-sm">April 10, 2025</p>
+                                    <ul class="mt-2 space-y-2 text-gray-600">
+                                        <li>Added new cabinet styles and configurations</li>
+                                        <li>Improved material management system</li>
+                                        <li>Enhanced performance for large projects</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Version 2.0.0</h3>
+                                    <p class="text-gray-500 text-sm">March 15, 2025</p>
+                                    <ul class="mt-2 space-y-2 text-gray-600">
+                                        <li>Major UI overhaul for better usability</li>
+                                        <li>New measurement and specification tools</li>
+                                        <li>Added export options for manufacturing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
+                    <p class="text-xl text-gray-600">Choose the plan that works best for you</p>
+
+                    <!-- Pricing Toggle -->
+                    <div class="flex items-center justify-center gap-4 mt-8">
+                        <span
+                            :class="{'text-gray-900': pricing === 'monthly', 'text-gray-500': pricing !== 'monthly'}">Monthly</span>
+                        <button class="w-16 h-8 rounded-full bg-primary relative"
+                            @click="pricing = pricing === 'monthly' ? 'yearly' : 'monthly'">
+                            <div class="w-6 h-6 bg-white rounded-full absolute top-1 transition-transform duration-200"
+                                :class="{'translate-x-9': pricing === 'yearly', 'translate-x-1': pricing === 'monthly'}">
+                            </div>
+                        </button>
+                        <span
+                            :class="{'text-gray-900': pricing === 'yearly', 'text-gray-500': pricing !== 'yearly'}">Yearly
+                            (Save 20%)</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Starter Plan -->
+                    <div class="bg-white rounded-xl shadow-sm p-8" data-aos="fade-up" data-aos-delay="0">
+                        <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                        <div class="mb-6">
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold" x-text="pricing === 'monthly' ? '$29' : '$279'"></span>
+                                <span class="text-gray-500 ml-1">/mo</span>
+                            </div>
+                            <p class="text-gray-500">Perfect for individual designers</p>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Basic cabinet library</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Standard support</span>
+                            </li>
+                        </ul>
+                        <a href="#"
+                            class="block text-center py-3 px-6 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                            Get Started
+                        </a>
+                    </div>
+
+                    <!-- Professional Plan -->
+                    <div class="bg-white rounded-xl shadow-sm p-8 relative border-2 border-primary" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-primary text-white px-4 py-1 rounded-full text-sm">Most Popular</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Professional</h3>
+                        <div class="mb-6">
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold" x-text="pricing === 'monthly' ? '$49' : '$469'"></span>
+                                <span class="text-gray-500 ml-1">/mo</span>
+                            </div>
+                            <p class="text-gray-500">For professional designers</p>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Full cabinet library</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Priority support</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Advanced export options</span>
+                            </li>
+                        </ul>
+                        <a href="#"
+                            class="block text-center py-3 px-6 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors">
+                            Get Started
+                        </a>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="bg-white rounded-xl shadow-sm p-8" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                        <div class="mb-6">
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold" x-text="pricing === 'monthly' ? '$99' : '$949'"></span>
+                                <span class="text-gray-500 ml-1">/mo</span>
+                            </div>
+                            <p class="text-gray-500">For large teams and businesses</p>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Custom cabinet libraries</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>24/7 priority support</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Custom integration options</span>
+                            </li>
+                        </ul>
+                        <a href="#"
+                            class="block text-center py-3 px-6 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                    <p class="text-xl text-gray-600">Find answers to common questions about ML Kitchens</p>
+                </div>
+                <div class="max-w-3xl mx-auto" x-data="{ active: null }">
+                    <div class="space-y-4">
+                        <!-- FAQ Item -->
+                        <div class="border rounded-lg">
+                            <button @click="active = active === 1 ? null : 1"
+                                class="flex justify-between items-center w-full p-4 text-left">
+                                <span class="font-semibold">How do I install ML Kitchens?</span>
+                                <svg class="w-5 h-5 transform transition-transform"
+                                    :class="{'rotate-180': active === 1}" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="active === 1" class="p-4 pt-0 text-gray-600">
+                                Installation is simple! Download the extension from our website, then use SketchUp's
+                                Extension Manager to install it. We provide detailed installation instructions in our
+                                documentation.
+                            </div>
+                        </div>
+
+                        <!-- More FAQ Items -->
+                        <div class="border rounded-lg">
+                            <button @click="active = active === 2 ? null : 2"
+                                class="flex justify-between items-center w-full p-4 text-left">
+                                <span class="font-semibold">Can I try before buying?</span>
+                                <svg class="w-5 h-5 transform transition-transform"
+                                    :class="{'rotate-180': active === 2}" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div x-show="active === 2" class="p-4 pt-0 text-gray-600">
+                                Yes! We offer a 14-day free trial with full access to all features. No credit card
+                                required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Same as homepage) -->
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <h4 class="text-2xl font-bold text-white">ML Kitchens</h4>
+                    <p class="text-gray-400">Smart kitchen design solutions for SketchUp professionals.</p>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Quick Links</h5>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="product.html" class="text-gray-400 hover:text-white transition-colors">Products</a>
+                        </li>
+                        <li><a href="#store" class="text-gray-400 hover:text-white transition-colors">Store</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Support</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Support</h5>
+                    <ul class="space-y-2">
+                        <li><a href="contact.html#documentation"
+                                class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="contact.html#tutorials"
+                                class="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
+                        <li><a href="contact.html#faq" class="text-gray-400 hover:text-white transition-colors">FAQs</a>
+                        </li>
+                        <li><a href="contact.html#contact-form"
+                                class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Legal</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 ML Kitchens. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+
+</html>
