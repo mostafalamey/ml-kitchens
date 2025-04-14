@@ -123,7 +123,7 @@ if (mobileMenuButton) {
 
 // Theme Switching Functionality
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark'; // Changed default to dark
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeToggleState(savedTheme);
 }
@@ -151,10 +151,8 @@ function toggleTheme() {
     updateThemeToggleState(newTheme);
 }
 
-// Set initial theme based on user's preference
-document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-});
+// Set initial theme as early as possible
+initTheme();
 
 // Initialize animations on page load
 document.addEventListener('DOMContentLoaded', () => {
