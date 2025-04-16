@@ -7,30 +7,15 @@
     <title>ML Kitchens for SketchUp - Professional Kitchen Design Extension</title>
     <meta name="description"
         content="Speed up your kitchen cabinet design process with smart SketchUp tools. Professional-grade extension for kitchen designers.">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#ff6b00',
-                        secondary: '#1a1a1a'
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
-<body class="font-sans" x-data="{ isOpen: false, activeTab: 'overview', pricing: 'yearly' }">
+<body class="font-sans" x-data="{ isOpen: false, activeTab: 'overview', pricing: 'yearly', activeImage: null }">
     <!-- Navigation (Same as homepage) -->
     <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +52,7 @@
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button @click="isOpen = !isOpen" class="text-gray-700">
+                    <button @click="isOpen = !isOpen" class="text-gray-700" aria-label="Toggle menu">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16M4 18h16" />
@@ -95,7 +80,7 @@
     <main class="pt-16">
         <!-- Hero Section -->
         <section class="relative min-h-[70vh] flex items-center pt-16 bg-gradient-to-br from-gray-50/50 to-gray-100/50">
-            <div class="absolute inset-0 z-0 bg-[url('HeroBackground.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 z-0 bg-[url('images/HeroBackground.jpg')] bg-cover bg-center"></div>
             <div class="absolute inset-0 z-0 bg-gradient-to-r from-black/60 to-transparent"></div>
             <div class="absolute inset-0 z-0 bg-black/40"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -149,7 +134,7 @@
                     <!-- Overview Tab -->
                     <div x-show="activeTab === 'overview'" class="space-y-8" data-aos="fade-up">
                         <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="product-overview.jpg" alt="ML Kitchens Interface Overview"
+                            <img src="images/product-overview.jpg" alt="ML Kitchens Interface Overview"
                                 class="w-full h-full object-cover">
                         </div>
                         <div class="prose prose-lg max-w-none">
@@ -161,22 +146,61 @@
                     </div>
 
                     <!-- Features Tab -->
-                    <div x-show="activeTab === 'features'" class="space-y-12" data-aos="fade-up">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <div x-show="activeTab === 'features'" class="space-y-8" data-aos="fade-up">
+                        <!-- System Units Feature -->
+                        <div
+                            class="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-8">
+                            <div class="w-1/3">
+                                <img src="images/SystemUnits.gif" alt="System Units and Measurements"
+                                    class="w-full h-auto rounded-lg feature-image"
+                                    @click="activeImage = 'images/SystemUnits.gif'">
+                            </div>
+                            <div class="w-2/3">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">System Units Integration</h3>
+                                <p class="text-gray-600">Seamlessly work with different measurement systems and
+                                    automatically convert between them.</p>
+                            </div>
+                        </div>
+
+                        <!-- Smart Cabinet Library -->
+                        <div
+                            class="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-8">
+                            <div class="w-1/3">
+                                <img src="images/Library.png" alt="Smart Cabinet Library"
+                                    class="w-full h-auto rounded-lg feature-image"
+                                    @click="activeImage = 'images/Library.png'">
+                            </div>
+                            <div class="w-2/3">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 6h16M4 12h16m-7 6h7" />
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-semibold">Smart Cabinet Library</h3>
+                                <h3 class="text-xl font-semibold mb-3">Smart Cabinet Library</h3>
                                 <p class="text-gray-600">Access hundreds of pre-configured cabinet designs that you can
                                     customize to your needs.</p>
                             </div>
-                            <div class="space-y-4">
-                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        </div>
+
+                        <!-- Real-time Editing -->
+                        <div
+                            class="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-8">
+                            <div class="w-1/3">
+                                <img src="images/Editing.gif" alt="Real-time Editing"
+                                    class="w-full h-auto rounded-lg feature-image"
+                                    @click="activeImage = 'images/Editing.gif'">
+                            </div>
+                            <div class="w-2/3">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -185,9 +209,9 @@
                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-semibold">Real-time 3D Visualization</h3>
-                                <p class="text-gray-600">See your designs come to life with instant 3D rendering and
-                                    material previews.</p>
+                                <h3 class="text-xl font-semibold mb-3">Real-time Editing</h3>
+                                <p class="text-gray-600">See your changes instantly with our real-time editing and
+                                    preview system.</p>
                             </div>
                         </div>
                     </div>
@@ -266,7 +290,7 @@
                     <div class="flex items-center justify-center gap-4 mt-8">
                         <span
                             :class="{'text-gray-900': pricing === 'monthly', 'text-gray-500': pricing !== 'monthly'}">Monthly</span>
-                        <button class="w-16 h-8 rounded-full bg-primary relative"
+                        <button class="w-16 h-8 rounded-full bg-primary relative" title="Toggle pricing plan"
                             @click="pricing = pricing === 'monthly' ? 'yearly' : 'monthly'">
                             <div class="w-6 h-6 bg-white rounded-full absolute top-1 transition-transform duration-200"
                                 :class="{'translate-x-9': pricing === 'yearly', 'translate-x-1': pricing === 'monthly'}">
@@ -454,6 +478,11 @@
             </div>
         </section>
     </main>
+
+    <!-- Image Modal -->
+    <div class="image-modal" :class="{ 'active': activeImage }" @click="activeImage = null">
+        <img :src="activeImage" alt="Enlarged feature" class="modal-image" @click.stop>
+    </div>
 
     <!-- Footer (Same as homepage) -->
     <footer class="bg-gray-900 text-gray-300">

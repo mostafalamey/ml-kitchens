@@ -135,7 +135,7 @@ function updateThemeToggleState(theme) {
         const handle = button.querySelector('.theme-toggle-handle');
         const sunIcon = button.querySelector('.theme-toggle-icon.sun');
         const moonIcon = button.querySelector('.theme-toggle-icon.moon');
-
+        
         if (handle) {
             if (theme === 'dark') {
                 handle.style.transform = 'translateX(24px)';
@@ -154,7 +154,7 @@ function toggleTheme() {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
+    
     html.setAttribute('data-theme', newTheme);
     document.body.classList.toggle('dark', newTheme === 'dark');
     localStorage.setItem('theme', newTheme);
